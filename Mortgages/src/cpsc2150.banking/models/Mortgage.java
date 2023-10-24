@@ -12,7 +12,8 @@ package cpsc2150.banking.models;
  * @corresponds:
  */
 public class Mortgage extends AbsMortgage implements IMortgage{
-
-    
+    Mortgage(double cost, double dp, int y, ICustomer customer){
+        
+    }
 
 }
