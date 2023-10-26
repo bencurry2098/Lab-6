@@ -26,7 +26,7 @@ public class Mortgage extends AbsMortgage implements IMortgage{
         //calculate 20% of the home cost
         double checkPercent = homeCost * PREFERRED_PERCENT_DOWN;
         //if the down payment is less than 20% of home cost, add 0.5%
-        if (downPay < checkPercent) APR += BADRATEADD;
+        if (downPay < checkPercent) APR += GOODRATEADD;
         //get customer credit score
         customerCreditScore = customer.getCreditScore();
         //if credit score > 500, + 10%
