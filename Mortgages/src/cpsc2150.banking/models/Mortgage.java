@@ -70,11 +70,15 @@ public class Mortgage extends AbsMortgage implements IMortgage {
     }
 
     public boolean loanApproved() {
-
+        if(rate*12 < RATETOOHIGH && PREFERRED_PERCENT_DOWN * homeCost >= MIN_PERCENT_DOWN && DebtToIncomeRatio <= DTOITOOHIGH)
+        {
+            return true;
+        }
+        return false;
     }
 
     public double getPayment() {
-
+        return payment;
     }
 
     public double getRate() {
