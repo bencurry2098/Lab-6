@@ -19,6 +19,10 @@ public class Mortgage extends AbsMortgage implements IMortgage {
     private double APR;
     private int years;
     private double principalAmount;
+    //added more variables I think are supposed to be added
+    private double payment;
+    private double DebtToIncomeRatio;
+    private double PercentDown;
     int customerCreditScore;
 
     /**
@@ -67,10 +71,15 @@ public class Mortgage extends AbsMortgage implements IMortgage {
             APR += 0;
         // calculate principal amount
         principalAmount = homeCost - downPay;
+        //things we may need
+        PercentDown = homeCost * PREFERRED_PERCENT_DOWN;
+        DebtToIncomeRatio = customer.getMonthlyDebtPayments() / customer.getIncome(); 
+        payment = (APR/MONTHS_IN_YEAR * principalAmount) / (1 - Math.pow(1 + APR/MONTHS_IN_YEAR,-1 * MONTHS_IN_YEAR));
     }
 
     public boolean loanApproved() {
-        if(rate*12 < RATETOOHIGH && PREFERRED_PERCENT_DOWN * homeCost >= MIN_PERCENT_DOWN && DebtToIncomeRatio <= DTOITOOHIGH)
+
+        if(APR <= RATETOOHIGH &&  PercentDown >= MIN_PERCENT_DOWN && DebtToIncomeRatio <= DTOITOOHIGH)
         {
             return true;
         }
