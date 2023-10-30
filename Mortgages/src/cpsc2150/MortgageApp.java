@@ -1,5 +1,4 @@
-package cpsc2150.banking;
-
+package cpsc2150;
 import cpsc2150.banking.models.*;
 
 public class MortgageApp {
