@@ -19,11 +19,11 @@ public class Mortgage extends AbsMortgage implements IMortgage {
     private double APR;
     private int years;
     private double principalAmount;
-    //added more variables I think are supposed to be added
     private double payment;
-    private double DebtToIncomeRatio;
-    private double PercentDown;
+    private double debtToIncomeRatio;
+    private double percentDown;
     int customerCreditScore;
+    double monthlyInterestRate;
 
     /**
      * This creates a new object to keep track of information for a specific
@@ -69,21 +69,19 @@ public class Mortgage extends AbsMortgage implements IMortgage {
         // if credit score >= 750, + 0%
         else
             APR += 0;
-        // calculate principal amount
+        // calculate necessary values
         principalAmount = homeCost - downPay;
-        //things we may need
-        PercentDown = homeCost * PREFERRED_PERCENT_DOWN;
-        DebtToIncomeRatio = customer.getMonthlyDebtPayments() / customer.getIncome(); 
-        payment = (APR/MONTHS_IN_YEAR * principalAmount) / (1 - Math.pow(1 + APR/MONTHS_IN_YEAR,-1 * MONTHS_IN_YEAR));
+        monthlyInterestRate = APR / MONTHS_IN_YEAR;
+        percentDown = homeCost * PREFERRED_PERCENT_DOWN;
+        debtToIncomeRatio = customer.getMonthlyDebtPayments() / customer.getIncome();
+        int totalNumPayments = years * MONTHS_IN_YEAR;
+        payment = (monthlyInterestRate * principalAmount) / (1 - Math.pow(1 + monthlyInterestRate,-1 * totalNumPayments));
     }
 
     public boolean loanApproved() {
-
-        if(APR <= RATETOOHIGH &&  PercentDown >= MIN_PERCENT_DOWN && DebtToIncomeRatio <= DTOITOOHIGH)
-        {
-            return true;
-        }
-        return false;
+        if (APR >= RATETOOHIGH || percentDown < MIN_PERCENT_DOWN || debtToIncomeRatio > DTOITOOHIGH)
+            return false;
+        return true;
     }
 
     public double getPayment() {
