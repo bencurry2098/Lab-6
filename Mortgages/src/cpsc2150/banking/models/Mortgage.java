@@ -76,6 +76,7 @@ public class Mortgage extends AbsMortgage implements IMortgage {
         debtToIncomeRatio = customer.getMonthlyDebtPayments() / customer.getIncome();
         int totalNumPayments = years * MONTHS_IN_YEAR;
         payment = (monthlyInterestRate * principalAmount) / (1 - Math.pow(1 + monthlyInterestRate,-1 * totalNumPayments));
+        debtToIncomeRatio = (customer.getMonthlyDebtPayments() + payment) * 12 / customer.getIncome();
     }
 
     public boolean loanApproved() {
